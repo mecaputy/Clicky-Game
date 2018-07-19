@@ -5,7 +5,6 @@ import Title from "./components/Title";
 import PictureCard from "./components/PictureCard";
 import pictures from "./pictures.json";
 import Container from "./components/Container";
-import Col from "./components/Col";
 import Row from "./components/Row"
 import './App.css';
 
@@ -17,42 +16,67 @@ class App extends Component {
   }
   //do we put this code into a file in src?
   //handler for onclick
-  HandleClick = () => {
+  handleClick = () => {
 
-    this.handleIncrement()
+    this.handleIncrement();
+    this.handleShuffle(this.state.pictures);
   }
 
   //handle increment for score
   handleIncrement = () => {
     this.setState({ score: this.state.score + 1 });
   };
- //handle random shuffle
- 
- //handle game reset
- 
+  //handle random shuffle generate a random number from array slice command
+arrayShuffle = (array) => {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
+handleShuffle = () => {
+  //change state after shuffle new index values as state
+}
+  //handle game reset
+
 
   render() {
     return (
-      <Wrapper>
+      <div>
         <Navbar
           title="Clicky Game"
         //scores
         />
-        <br />
-        <Title><h1><strong>Clicky Game</strong></h1><p>Click on an image to earn points, but don't click on any more than once</p></Title>
-        <Container>
-          <Row>
-            {this.state.pictures.map(picture => (
-              <Col size="md-3">
-                <PictureCard
-                  id={picture.id}
-                  image={picture.image}
-                />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </Wrapper>
+        <Wrapper>
+          <br />
+          <Title>
+            <strong>Clicky Game</strong>
+            <p>Click on an image to earn points, but don't click on any more than once</p>
+          </Title>
+          <Container>
+            <Row>
+              {this.state.pictures.map(picture => (
+                  <PictureCard
+                    key={picture.id}
+                    id={picture.id}
+                    image={picture.image}
+                  />
+              ))}
+            </Row>
+          </Container>
+        </Wrapper>
+      </div>
     );
   }
 }

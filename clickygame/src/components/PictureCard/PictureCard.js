@@ -1,18 +1,17 @@
 import React from "react";
+
+import Col from "../Col";
 import "./PictureCard.css";
 
 const PictureCard = props => (
-  <div className="card">
+  <Col size="md-3" className="click-item">
     <div className="img-container">
     {/* add an onclick */}
-      <img alt={props.name} src={props.image} onClick={props.handleCLICK} />
+      <img className="click-item" alt={props.name} src={props.image} onClick={props.handleCLICK} />
     </div>
-  </div>
+  </Col>
+  
 );
-{/* <li className="nav-item">
-<a onClick={() => props.handlePageChange("Home")} className="nav-link">
-  Home
-</a>
-</li> */}
+
 
 export default PictureCard;
