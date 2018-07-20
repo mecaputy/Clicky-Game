@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Navbar from "./components/Navbar";
 import Wrapper from "./components/Wrapper";
 import Title from "./components/Title";
 import PictureCard from "./components/PictureCard";
 import pictures from "./pictures.json";
 import Container from "./components/Container";
-import Row from "./components/Row"
-import './App.css';
+import Row from "./components/Row";
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -14,44 +14,56 @@ class App extends Component {
     score: 0,
     topScore: 0,
     clicked: []
-  }
+  };
   // componentDidMount() {
   //   this.arrayShuffle();
   // }
   //handler for onclick
-  handleClick = (id) => {
+  handleClick = id => {
     if (this.state.clicked.includes(id)) {
       alert("You lose!");
-      this.setState({score: 0});
-      this.setState({clicked: []});
+      this.setState({ score: 0 });
+      this.setState({ clicked: [] });
       this.handleReset();
     } else {
       // let score = this.state.score +1;
       this.handleIncrement();
-      let newClicked = this.state.clicked.push(id);
-      this.setState({ clicked: newClicked});
+      let newClicked = this.state.clicked;
+      newClicked.push(id);
+      this.setState({ clicked: newClicked });
     }
-    this.arrayShuffle(this.state.pictures)
+    this.arrayShuffle(this.state.pictures);
   };
 
   //handle increment for score
   handleIncrement = () => {
     this.setState({ score: this.state.score + 1 });
     if (this.score === 12) {
-      alert("You win!")
+      alert("You win!");
     }
   };
   //handle random shuffle generate a random number from array slice command
-  arrayShuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j] = array[j], array[i]];
+  arrayShuffle = array => {
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
     }
-    return array;
+    return this.setState({ pictures: array });
   };
 
   // handleShuffle = () => {
-  //   // let shuffledPictures = 
+  //   // let shuffledPictures =
   //   //change state after shuffle new index values as state
   // }
 
@@ -61,22 +73,25 @@ class App extends Component {
       score: 0,
       clicked: []
     });
-  //   this.handleShuffle();
+    //   this.handleShuffle();
   };
-
 
   render() {
     return (
       <div>
         <Navbar
           title="Clicky Game"
-        //scores
+          //scores
         />
         <Wrapper>
           <br />
           <Title>
             <strong>Clicky Game</strong>
-            <p>Click on an image to earn points, but don't click on any more than once</p>
+            <p>
+              Click on an image to earn points, but don't click on any more than
+              once
+            </p>
+            <p>Score: {this.state.score}</p>
           </Title>
           <Container>
             <Row>
