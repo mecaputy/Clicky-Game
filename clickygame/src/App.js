@@ -28,7 +28,8 @@ class App extends Component {
     } else {
       // let score = this.state.score +1;
       this.handleIncrement();
-      this.setState({ clicked: this.state.clicked });
+      let newClicked = this.state.clicked.push(id);
+      this.setState({ clicked: newClicked});
     }
     this.arrayShuffle(this.state.pictures)
   };
