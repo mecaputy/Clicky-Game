@@ -6,7 +6,7 @@ const Navbar = props => (
 <nav className="navbar">
 <ul className="nav">
   <li className="nav-item">
-    <a className="nav-link" href="/">{props.title}</a>
+    <a className="navbar-brand" href="/"><strong>{props.title}</strong></a>
   </li>  
 </ul>
 </nav>

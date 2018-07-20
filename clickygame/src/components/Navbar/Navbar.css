@@ -1,9 +1,7 @@
-.navbar-li {
-    display: inline-block;
-}
-.navbar-text {
-    align-content: right;
-    float: right;
+.navbar-brand {
+    color: rgb(231, 231, 231);
+    text-align: center;
+    align-content: center;
 }
 
 .navbar {
@@ -18,4 +16,5 @@
     /* font-size: calc(10px + 14 * (100vw - 320px)/ 800); */
     /* z-index: 99; */
     white-space: nowrap;
+    text-align: center;
 }
