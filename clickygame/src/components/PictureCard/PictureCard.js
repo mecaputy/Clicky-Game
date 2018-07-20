@@ -4,10 +4,11 @@ import Col from "../Col";
 import "./PictureCard.css";
 
 const PictureCard = props => (
-  <Col size="md-3" className="click-item">
+  <Col size="md-3" >
+    <div className="card" value={props.id} onClick={() => props.handleClick(props.id)}>
     <div className="img-container">
-    {/* add an onclick */}
-      <img className="click-item" alt={props.name} src={props.image} onClick={props.handleCLICK} />
+      <img className="click-item" alt={props.name} src={props.image}/>
+    </div>
     </div>
   </Col>
   

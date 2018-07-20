@@ -11,44 +11,57 @@ import './App.css';
 class App extends Component {
   state = {
     pictures,
-    score: 0
-    //add in scores & clicked
+    score: 0,
+    topScore: 0,
+    clicked: []
   }
-  //do we put this code into a file in src?
+  // componentDidMount() {
+  //   this.arrayShuffle();
+  // }
   //handler for onclick
-  handleClick = () => {
-
-    this.handleIncrement();
-    this.handleShuffle(this.state.pictures);
-  }
+  handleClick = (id) => {
+    if (this.state.clicked.includes(id)) {
+      alert("You lose!");
+      this.setState({score: 0});
+      this.setState({clicked: []});
+      this.handleReset();
+    } else {
+      // let score = this.state.score +1;
+      this.handleIncrement();
+      this.setState({ clicked: this.state.clicked });
+    }
+    this.arrayShuffle(this.state.pictures)
+  };
 
   //handle increment for score
   handleIncrement = () => {
     this.setState({ score: this.state.score + 1 });
+    if (this.score === 12) {
+      alert("You win!")
+    }
   };
   //handle random shuffle generate a random number from array slice command
-arrayShuffle = (array) => {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+  arrayShuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j] = array[j], array[i]];
     }
-  
     return array;
-  }
-handleShuffle = () => {
-  //change state after shuffle new index values as state
-}
+  };
+
+  // handleShuffle = () => {
+  //   // let shuffledPictures = 
+  //   //change state after shuffle new index values as state
+  // }
+
   //handle game reset
+  handleReset = () => {
+    this.setState({
+      score: 0,
+      clicked: []
+    });
+  //   this.handleShuffle();
+  };
 
 
   render() {
@@ -67,11 +80,12 @@ handleShuffle = () => {
           <Container>
             <Row>
               {this.state.pictures.map(picture => (
-                  <PictureCard
-                    key={picture.id}
-                    id={picture.id}
-                    image={picture.image}
-                  />
+                <PictureCard
+                  key={picture.id}
+                  id={picture.id}
+                  image={picture.image}
+                  handleClick={this.handleClick}
+                />
               ))}
             </Row>
           </Container>
